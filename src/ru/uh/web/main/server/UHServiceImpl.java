@@ -43,36 +43,40 @@ public class UHServiceImpl extends RemoteServiceServlet implements UHService {
 
 	private void updatePriority(TaskInfoProxy proxy, TaskShowParams params) {
 		Date now = new Date();
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(proxy.getLastTaskDate());
-		calendar.add(Calendar.MONTH, proxy.getLimitMonth());
-		calendar.add(Calendar.DAY_OF_YEAR, -proxy.getMarginDay());
-		if (now.after(calendar.getTime())) {
-			proxy.setPriority(2);
-			calendar.add(Calendar.DAY_OF_YEAR, proxy.getMarginDay() * 2);
+		if (proxy.getLimitMonth() != 0) {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(proxy.getLastTaskDate());
+			calendar.add(Calendar.MONTH, proxy.getLimitMonth());
+			calendar.add(Calendar.DAY_OF_YEAR, -proxy.getMarginDay());
 			if (now.after(calendar.getTime())) {
-				proxy.setPriority(3);
-			}
-		} else {
-			calendar.add(Calendar.DAY_OF_YEAR, -params.getComesDays());
-			if (now.after(calendar.getTime())) {
-				proxy.setPriority(1);
+				proxy.setPriority(2);
+				calendar.add(Calendar.DAY_OF_YEAR, proxy.getMarginDay() * 2);
+				if (now.after(calendar.getTime())) {
+					proxy.setPriority(3);
+				}
+			} else {
+				calendar.add(Calendar.DAY_OF_YEAR, -params.getComesDays());
+				if (now.after(calendar.getTime())) {
+					proxy.setPriority(1);
+				}
 			}
 		}
+		if (proxy.getLimitHF() != 0) {
 
-		int fh = proxy.getLastTaskHF();
-		fh += proxy.getLimitHF();
-		fh -= proxy.getMarginHF();
-		if (params.getRealHF() > fh) {
-			proxy.setPriority(2);
-			fh += 2 * proxy.getMarginHF();
+			int fh = proxy.getLastTaskHF();
+			fh += proxy.getLimitHF();
+			fh -= proxy.getMarginHF();
 			if (params.getRealHF() > fh) {
-				proxy.setPriority(3);
-			}
-		} else {
-			fh -= params.getComesHF();
-			if (params.getRealHF() > fh) {
-				proxy.setPriority(1);
+				proxy.setPriority(2);
+				fh += 2 * proxy.getMarginHF();
+				if (params.getRealHF() > fh) {
+					proxy.setPriority(3);
+				}
+			} else {
+				fh -= params.getComesHF();
+				if (params.getRealHF() > fh) {
+					proxy.setPriority(1);
+				}
 			}
 		}
 

@@ -1,6 +1,7 @@
 package ru.uh.web.main.client;
 
 import java.text.ParseException;
+import java.util.Date;
 
 import ru.uh.web.main.shared.TaskInfoProxy;
 
@@ -140,6 +141,24 @@ public class TaskInfoProperties extends CommonDirectoryWindow<TaskInfoProxy> {
 					updatableForm.update();
 			}
 		});
+	}
+
+	public void setAsProperties() {
+		setEnableProperties(true);
+	}
+
+	public void setAsFact() {
+		setEnableProperties(false);
+		lastTaskDate.setValue(new Date());
+	}
+
+	private void setEnableProperties(boolean value) {
+		taskNumber.setEnabled(value);
+		taskTitle.setEnabled(value);
+		limitHF.setEnabled(value);
+		marginHF.setEnabled(value);
+		limitMonth.setEnabled(value);
+		marginDays.setEnabled(value);
 	}
 
 }

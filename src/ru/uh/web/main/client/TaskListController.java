@@ -49,6 +49,7 @@ public class TaskListController implements IsWidget, IUpdatable {
 			@Override
 			public void onSelect(SelectEvent event) {
 				window.setData(null);
+				window.setAsProperties();
 				window.show();
 			}
 		});
@@ -64,9 +65,28 @@ public class TaskListController implements IsWidget, IUpdatable {
 				}
 				TaskInfoProxy object = list.get(0);
 				window.setData(object);
+				window.setAsProperties();
 				window.show();
 			}
 		});
+
+		TextButton setButton = new TextButton("Проставить факт");
+		setButton.addSelectHandler(new SelectHandler() {
+
+			@Override
+			public void onSelect(SelectEvent event) {
+				List<TaskInfoProxy> list = grid.getSelectionModel().getSelectedItems();
+				if (list == null || list.size() != 1) {
+					Info.display("Предупреждение", "Невозможно произвести редактирование");
+					return;
+				}
+				TaskInfoProxy object = list.get(0);
+				window.setData(object);
+				window.setAsFact();
+				window.show();
+			}
+		});
+
 		TextButton refreshButton = new TextButton("Обновить");
 		refreshButton.addSelectHandler(new SelectHandler() {
 
@@ -99,6 +119,8 @@ public class TaskListController implements IsWidget, IUpdatable {
 		toolBar.add(new FieldLabel(comesHF, "Предупредить за"));
 		toolBar.add(comesDays);
 
+		toolBar.add(setButton);
+
 		return toolBar;
 	}
 
@@ -115,12 +137,11 @@ public class TaskListController implements IsWidget, IUpdatable {
 			if (comesHF.getValue() != null) {
 				params.setComesHF(IntegerParser.instance().parse(comesHF.getValue()));
 			}
-		} catch (ParseException ex) {
+		} catch (Exception ex) {
 			Info.display("Ошибка", "Неверный числовой формат");
 			return;
 		}
 		grid.updateData(params);
 
 	}
-
 }
