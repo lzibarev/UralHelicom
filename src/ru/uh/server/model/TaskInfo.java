@@ -43,17 +43,36 @@ public class TaskInfo {
 	public TaskInfo() {
 	}
 
+	public TaskInfo(TaskInfoProxy proxy) {
+		taskNumber = proxy.getTaskNumber();
+		taskTitle = proxy.getTaskTitle();
+
+		limitHF = proxy.getLimitHF();
+		marginHF = proxy.getMarginHF();
+
+		limitMonth = proxy.getLimitMonth();
+		marginDay = proxy.getMarginDay();
+
+		lastTaskHF = proxy.getLastTaskHF();
+		lastTaskDate = proxy.getLastTaskDate();
+
+	}
+
 	public TaskInfoProxy asProxy() {
 		TaskInfoProxy proxy = new TaskInfoProxy();
 		proxy.setId(KeyFactory.keyToString(key));
+
 		proxy.setTaskNumber(taskNumber);
 		proxy.setTaskTitle(taskTitle);
+
 		proxy.setLimitHF(limitHF);
-		proxy.setLimitMonth(limitMonth);
-		proxy.setLastTaskDate(lastTaskDate);
-		proxy.setLastTaskHF(lastTaskHF);
-		proxy.setMarginDay(marginDay);
 		proxy.setMarginHF(marginHF);
+
+		proxy.setLimitMonth(limitMonth);
+		proxy.setMarginDay(marginDay);
+
+		proxy.setLastTaskDate(new Date(lastTaskDate.getTime()));
+		proxy.setLastTaskHF(lastTaskHF);
 		return proxy;
 	}
 

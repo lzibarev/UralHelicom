@@ -31,7 +31,7 @@ public class TaskListController implements IsWidget, IUpdatable {
 	private ToolBar createToolBar() {
 		ToolBar toolBar = new ToolBar();
 
-		TextButton addButton = new TextButton("Добавить");
+		TextButton addButton = new TextButton("Добавить новый тип работы");
 		addButton.addSelectHandler(new SelectHandler() {
 
 			@Override

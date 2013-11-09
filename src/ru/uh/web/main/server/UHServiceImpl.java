@@ -37,7 +37,14 @@ public class UHServiceImpl extends RemoteServiceServlet  implements UHService{
 
 	@Override
 	public TaskInfoProxy editTask(TaskInfoProxy proxy) {
-		// TODO Auto-generated method stub
-		return null;
+		TaskInfo task = new TaskInfo(proxy);
+		PersistenceManager em = null;
+		try {
+			em = PMF.get().getPersistenceManager();
+			em.makePersistent(task);
+		} finally {
+			em.close();
+		}
+		return task.asProxy();
 	}
 }
