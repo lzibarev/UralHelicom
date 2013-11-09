@@ -16,6 +16,6 @@ public interface TaskInfoProxyProperties extends PropertyAccess<TaskInfoProxy> {
 
 	ValueProvider<TaskInfoProxy, String> taskTitle();
 
-	ValueProvider<TaskInfoProxy, Integer> limitHF();
+	ValueProvider<TaskInfoProxy, String> limitHFGrid();
 
 }

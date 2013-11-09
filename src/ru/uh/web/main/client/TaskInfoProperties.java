@@ -31,9 +31,13 @@ public class TaskInfoProperties extends CommonDirectoryWindow<TaskInfoProxy> {
 		setHeadingText("Работа");
 	}
 
+	private VerticalLayoutContainer p;
+
 	@Override
 	protected Container getInfoContainer() {
-		VerticalLayoutContainer p = new VerticalLayoutContainer();
+		if (p != null)
+			return p;
+		p = new VerticalLayoutContainer();
 
 		taskNumber = new TextField();
 		taskNumber.setAllowBlank(false);
@@ -110,11 +114,18 @@ public class TaskInfoProperties extends CommonDirectoryWindow<TaskInfoProxy> {
 	protected void editProcess() {
 		if (object == null)
 			object = new TaskInfoProxy();
-		object.setTaskNumber(taskNumber.getValue());
-		object.setTaskTitle(taskTitle.getValue());
-		object.setLastTaskDate(lastTaskDate.getValue());
 		try {
+			object.setTaskNumber(taskNumber.getValue());
+			object.setTaskTitle(taskTitle.getValue());
+
+			object.setLimitHF(IntegerParser.instance().parse(limitHF.getValue()));
+			object.setMarginHF(IntegerParser.instance().parse(marginHF.getValue()));
+
+			object.setLimitMonth(IntegerParser.instance().parse(limitMonth.getValue()));
+			object.setMarginDay(IntegerParser.instance().parse(marginDays.getValue()));
+
 			object.setLastTaskHF(IntegerParser.instance().parse(lastTaskHF.getValue()));
+			object.setLastTaskDate(lastTaskDate.getValue());
 		} catch (ParseException ex) {
 			Info.display("Ошибка", "Неверный числовой формат");
 		}

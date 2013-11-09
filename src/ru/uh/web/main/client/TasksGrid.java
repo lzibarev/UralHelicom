@@ -29,7 +29,7 @@ public class TasksGrid extends CommonGrid<TaskInfoProxy> {
 
 		ColumnConfig<TaskInfoProxy, String> nameCol = new ColumnConfig<TaskInfoProxy, String>(props.taskNumber(), 300, "Код работы");
 		ColumnConfig<TaskInfoProxy, String> customerCol = new ColumnConfig<TaskInfoProxy, String>(props.taskTitle(), 200, "Описание работы");
-		ColumnConfig<TaskInfoProxy, Integer> legalNumberCol = new ColumnConfig<TaskInfoProxy, Integer>(props.limitHF(), 200, "Лимит часов");
+		ColumnConfig<TaskInfoProxy, String> legalNumberCol = new ColumnConfig<TaskInfoProxy, String>(props.limitHFGrid(), 200, "Лимит часов");
 
 		List<ColumnConfig<TaskInfoProxy, ?>> l = new ArrayList<ColumnConfig<TaskInfoProxy, ?>>();
 		l.add(nameCol);

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @SuppressWarnings("serial")
-public class TaskInfoProxy  implements Serializable {
+public class TaskInfoProxy implements Serializable {
 
 	private String id;
 	private String taskNumber;
@@ -17,6 +17,10 @@ public class TaskInfoProxy  implements Serializable {
 	private Date lastTaskDate;
 	private double diffHF;
 	private double diffDays;
+
+	public String getLimitHFGrid() {
+		return lastTaskHF + " ± " + marginHF;
+	}
 
 	public String getId() {
 		return id;

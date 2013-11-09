@@ -14,7 +14,7 @@ import ru.uh.web.main.client.UHService;
 import ru.uh.web.main.shared.TaskInfoProxy;
 
 @SuppressWarnings("serial")
-public class UHServiceImpl extends RemoteServiceServlet  implements UHService{
+public class UHServiceImpl extends RemoteServiceServlet implements UHService {
 
 	@SuppressWarnings("unchecked")
 	public List<TaskInfoProxy> getTasks() {
@@ -32,6 +32,7 @@ public class UHServiceImpl extends RemoteServiceServlet  implements UHService{
 		for (TaskInfo taskInfo : tasks) {
 			list.add(taskInfo.asProxy());
 		}
+		System.out.println(list.size());
 		return list;
 	}
 
@@ -45,6 +46,7 @@ public class UHServiceImpl extends RemoteServiceServlet  implements UHService{
 		} finally {
 			em.close();
 		}
+		System.out.println(task.getKey().toString());
 		return task.asProxy();
 	}
 }
