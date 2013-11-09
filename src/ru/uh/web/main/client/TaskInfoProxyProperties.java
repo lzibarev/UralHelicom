@@ -22,4 +22,6 @@ public interface TaskInfoProxyProperties extends PropertyAccess<TaskInfoProxy> {
 
 	ValueProvider<TaskInfoProxy, String> lastTaskGrid();
 
+	ValueProvider<TaskInfoProxy, String> priorityStr();
+
 }

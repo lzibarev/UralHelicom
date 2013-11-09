@@ -1,6 +1,8 @@
 package ru.uh.web.main.server;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -30,10 +32,32 @@ public class UHServiceImpl extends RemoteServiceServlet implements UHService {
 		}
 
 		for (TaskInfo taskInfo : tasks) {
-			list.add(taskInfo.asProxy());
+			TaskInfoProxy proxy = taskInfo.asProxy();
+			updatePriority(proxy);
+			list.add(proxy);
 		}
 		System.out.println(list.size());
 		return list;
+	}
+
+	private void updatePriority(TaskInfoProxy proxy) {
+		Date now = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(proxy.getLastTaskDate());
+		calendar.add(Calendar.MONTH, proxy.getLimitMonth());
+		calendar.add(Calendar.DAY_OF_YEAR, -proxy.getMarginDay());
+		if (now.after(calendar.getTime())) {
+			proxy.setPriority(2);
+			calendar.add(Calendar.DAY_OF_YEAR, proxy.getMarginDay() * 2);
+			if (now.after(calendar.getTime())) {
+				proxy.setPriority(3);
+			}
+		}
+
+		int fh = proxy.getLastTaskHF();
+		fh += proxy.getLimitHF();
+		fh -= proxy.getMarginHF();
+
 	}
 
 	@Override

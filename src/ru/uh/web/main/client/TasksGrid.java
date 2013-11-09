@@ -27,13 +27,15 @@ public class TasksGrid extends CommonGrid<TaskInfoProxy> {
 	public static TasksGrid getCalculatorGrid() {
 		ListStore<TaskInfoProxy> store = new ListStore<TaskInfoProxy>(props.key());
 
-		ColumnConfig<TaskInfoProxy, String> taskNameCol = new ColumnConfig<TaskInfoProxy, String>(props.taskNumber(), 300, "Код работы");
+		ColumnConfig<TaskInfoProxy, String> priorityCol = new ColumnConfig<TaskInfoProxy, String>(props.priorityStr(), 100, "Приоритет");
+		ColumnConfig<TaskInfoProxy, String> taskNameCol = new ColumnConfig<TaskInfoProxy, String>(props.taskNumber(), 100, "Код работы");
 		ColumnConfig<TaskInfoProxy, String> taskTitleCol = new ColumnConfig<TaskInfoProxy, String>(props.taskTitle(), 200, "Описание работы");
 		ColumnConfig<TaskInfoProxy, String> limitHFCol = new ColumnConfig<TaskInfoProxy, String>(props.limitHFGrid(), 100, "Лимит налета");
 		ColumnConfig<TaskInfoProxy, String> limitMonthCol = new ColumnConfig<TaskInfoProxy, String>(props.limitMonthGrid(), 100, "Лимит времени");
 		ColumnConfig<TaskInfoProxy, String> tastTaskCol = new ColumnConfig<TaskInfoProxy, String>(props.lastTaskGrid(), 200, "Последняя работа");
 
 		List<ColumnConfig<TaskInfoProxy, ?>> l = new ArrayList<ColumnConfig<TaskInfoProxy, ?>>();
+		l.add(priorityCol);
 		l.add(taskNameCol);
 		l.add(taskTitleCol);
 		l.add(limitHFCol);
