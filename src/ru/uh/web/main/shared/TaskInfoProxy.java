@@ -6,7 +6,7 @@ import java.util.Date;
 import com.google.gwt.i18n.client.DateTimeFormat;
 
 @SuppressWarnings("serial")
-public class TaskInfoProxy implements Serializable {
+public class TaskInfoProxy implements Serializable, Comparable<TaskInfoProxy> {
 
 	private String id;
 	private String taskNumber;
@@ -128,6 +128,16 @@ public class TaskInfoProxy implements Serializable {
 
 	public int getPriority() {
 		return priority;
+	}
+
+	@Override
+	public int compareTo(TaskInfoProxy o) {
+		if (priority == o.priority)
+			return 0;
+		if (priority < o.priority)
+			return 1;
+		else
+			return -1;
 	}
 
 }

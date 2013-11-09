@@ -82,8 +82,6 @@ public class TaskInfoProperties extends CommonDirectoryWindow<TaskInfoProxy> {
 
 		p.add(hp2, new VerticalLayoutData(1, -1));
 
-		
-		
 		lastTaskHF = new TextField();
 		lastTaskHF.setAllowBlank(false);
 		lastTaskHF.setEmptyText("Налет на момент проведения работ");

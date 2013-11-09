@@ -53,7 +53,7 @@ public class TasksGrid extends CommonGrid<TaskInfoProxy> {
 		};
 
 		taskDiffHFCol.setCell(c);
-		taskDiffHFCol.setCell(c);
+		taskDiffDaysCol.setCell(c);
 
 		List<ColumnConfig<TaskInfoProxy, ?>> l = new ArrayList<ColumnConfig<TaskInfoProxy, ?>>();
 		l.add(priorityCol);

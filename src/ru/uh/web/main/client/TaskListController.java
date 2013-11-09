@@ -64,6 +64,8 @@ public class TaskListController implements IsWidget, IUpdatable {
 					return;
 				}
 				TaskInfoProxy object = list.get(0);
+				window = new TaskInfoProperties();
+				window.setUpdatable(TaskListController.this);
 				window.setData(object);
 				window.setAsProperties();
 				window.show();

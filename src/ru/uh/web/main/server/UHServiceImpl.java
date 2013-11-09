@@ -2,6 +2,7 @@ package ru.uh.web.main.server;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class UHServiceImpl extends RemoteServiceServlet implements UHService {
 			updatePriority(proxy, params);
 			list.add(proxy);
 		}
+		Collections.sort(list);
 		System.out.println(list.size());
 		return list;
 	}
@@ -50,24 +52,25 @@ public class UHServiceImpl extends RemoteServiceServlet implements UHService {
 
 	private void updatePriority(TaskInfoProxy proxy, TaskShowParams params) {
 		if (proxy.getLimitMonth() != 0) {
-			Date now = new Date();
+			Date now = DateUtils.getDateNoTime(new Date());
 			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(proxy.getLastTaskDate());
+			calendar.setTime(DateUtils.getDateNoTime(proxy.getLastTaskDate()));
 			calendar.add(Calendar.MONTH, proxy.getLimitMonth());
 			calendar.add(Calendar.DAY_OF_YEAR, -proxy.getMarginDay());
 			proxy.setDiffDaysStr("Запланированно через " + DateUtils.diffInDays(now, calendar.getTime()) + " дней");
-			if (now.after(calendar.getTime())) {
+			if (now.after(calendar.getTime()) || now.equals(calendar.getTime())) {
 				proxy.setPriority(2);
-				proxy.setDiffDaysStr("Лимит достигнут до окончания " + DateUtils.diffInDays(now, calendar.getTime()) + " дней");
 				calendar.add(Calendar.DAY_OF_YEAR, proxy.getMarginDay() * 2);
-				if (now.after(calendar.getTime())) {
+				proxy.setDiffDaysStr("Лимит достигнут до окончания " + DateUtils.diffInDays(now, calendar.getTime()) + " дней");
+				if (now.after(calendar.getTime()) || now.equals(calendar.getTime()) ) {
 					proxy.setPriority(3);
-					proxy.setDiffDaysStr("Лимит прeвышен на " + DateUtils.diffInDays(now, calendar.getTime()) + " дней");
+					proxy.setDiffDaysStr("Лимит прeвышен на " + DateUtils.diffInDays(calendar.getTime(), now) + " дней");
 				}
 			} else {
 				calendar.add(Calendar.DAY_OF_YEAR, -params.getComesDays());
 				if (now.after(calendar.getTime())) {
 					proxy.setPriority(1);
+					calendar.add(Calendar.DAY_OF_YEAR, params.getComesDays());
 					proxy.setDiffDaysStr("Приближается срок через " + DateUtils.diffInDays(now, calendar.getTime()) + " дней");
 				}
 			}
@@ -78,12 +81,12 @@ public class UHServiceImpl extends RemoteServiceServlet implements UHService {
 			int fh = proxy.getLastTaskHF();
 			fh += proxy.getLimitHF();
 			fh -= proxy.getMarginHF();
-			proxy.setDiffHFStr("Запланированно через " + (params.getRealHF() - fh) + " часов");
-			if (params.getRealHF() > fh) {
+			proxy.setDiffHFStr("Запланированно через " + (fh - params.getRealHF()) + " часов");
+			if (params.getRealHF() >= fh) {
 				proxy.setPriority(2);
-				proxy.setDiffHFStr("Лимит достигнут до окончания " + (params.getRealHF() - fh) + " часов");
 				fh += 2 * proxy.getMarginHF();
-				if (params.getRealHF() > fh) {
+				proxy.setDiffHFStr("Лимит достигнут до окончания " + (fh - params.getRealHF()) + " часов");
+				if (params.getRealHF() >= fh) {
 					proxy.setPriority(3);
 					proxy.setDiffHFStr("Лимит прeвышен на " + (params.getRealHF() - fh) + " часов");
 				}
@@ -91,7 +94,8 @@ public class UHServiceImpl extends RemoteServiceServlet implements UHService {
 				fh -= params.getComesHF();
 				if (params.getRealHF() > fh) {
 					proxy.setPriority(1);
-					proxy.setDiffHFStr("Приближается срок через " + (params.getRealHF() - fh) + " часов");
+					fh += params.getComesHF();
+					proxy.setDiffHFStr("Приближается срок через " + (fh - params.getRealHF()) + " часов");
 				}
 			}
 		}
