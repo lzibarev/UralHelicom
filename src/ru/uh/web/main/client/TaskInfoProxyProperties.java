@@ -18,4 +18,8 @@ public interface TaskInfoProxyProperties extends PropertyAccess<TaskInfoProxy> {
 
 	ValueProvider<TaskInfoProxy, String> limitHFGrid();
 
+	ValueProvider<TaskInfoProxy, String> limitMonthGrid();
+
+	ValueProvider<TaskInfoProxy, String> lastTaskGrid();
+
 }

@@ -19,7 +19,15 @@ public class TaskInfoProxy implements Serializable {
 	private double diffDays;
 
 	public String getLimitHFGrid() {
-		return lastTaskHF + " ± " + marginHF;
+		return limitHF + " ± " + marginHF + " часов";
+	}
+
+	public String getLimitMonthGrid() {
+		return limitMonth + " ± " + marginDay + " дней";
+	}
+
+	public String getLastTaskGrid() {
+		return lastTaskDate.toString() + "  (" + lastTaskHF + " часов)";
 	}
 
 	public String getId() {
