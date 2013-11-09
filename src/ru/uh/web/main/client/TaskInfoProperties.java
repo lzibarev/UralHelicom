@@ -97,6 +97,8 @@ public class TaskInfoProperties extends CommonDirectoryWindow<TaskInfoProxy> {
 	@Override
 	public void setData(TaskInfoProxy object) {
 		this.object = object;
+		if (object == null)
+			return;
 		taskNumber.setValue(object.getTaskNumber());
 		taskTitle.setValue(object.getTaskTitle());
 

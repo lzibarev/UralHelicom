@@ -44,6 +44,9 @@ public class TaskInfo {
 	}
 
 	public TaskInfo(TaskInfoProxy proxy) {
+		if (proxy.getId() != null) {
+			key = KeyFactory.stringToKey(proxy.getId());
+		}
 		taskNumber = proxy.getTaskNumber();
 		taskTitle = proxy.getTaskTitle();
 

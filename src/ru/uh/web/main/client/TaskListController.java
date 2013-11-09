@@ -16,10 +16,14 @@ import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 public class TaskListController implements IsWidget, IUpdatable {
 
 	private TasksGrid grid;
+	private TaskInfoProperties window;
 
 	@Override
 	public Widget asWidget() {
 		VerticalLayoutContainer container = new VerticalLayoutContainer();
+
+		window = new TaskInfoProperties();
+		window.setUpdatable(TaskListController.this);
 
 		container.add(createToolBar());
 
@@ -36,8 +40,7 @@ public class TaskListController implements IsWidget, IUpdatable {
 
 			@Override
 			public void onSelect(SelectEvent event) {
-				TaskInfoProperties window = new TaskInfoProperties();
-				window.setUpdatable(TaskListController.this);
+				window.setData(null);
 				window.show();
 			}
 		});
@@ -52,8 +55,6 @@ public class TaskListController implements IsWidget, IUpdatable {
 					return;
 				}
 				TaskInfoProxy object = list.get(0);
-				TaskInfoProperties window = new TaskInfoProperties();
-				window.setUpdatable(TaskListController.this);
 				window.setData(object);
 				window.show();
 			}
