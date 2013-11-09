@@ -3,6 +3,8 @@ package ru.uh.web.main.shared;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.google.gwt.i18n.client.DateTimeFormat;
+
 @SuppressWarnings("serial")
 public class TaskInfoProxy implements Serializable {
 
@@ -28,7 +30,8 @@ public class TaskInfoProxy implements Serializable {
 	}
 
 	public String getLastTaskGrid() {
-		return lastTaskDate.toString() + "  (" + lastTaskHF + " часов)";
+		DateTimeFormat dtf = DateTimeFormat.getFormat("yyyy/MM/dd");
+		return dtf.format(lastTaskDate) + "  (" + lastTaskHF + " часов)";
 	}
 
 	public String getId() {

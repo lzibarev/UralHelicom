@@ -98,28 +98,25 @@ public class TaskListController implements IsWidget, IUpdatable {
 
 		realHF = new TextField();
 		realHF.setAllowBlank(false);
-		realHF.setWidth(50);
-		realHF.setEmptyText("часов");
+		realHF.setWidth(90);
+		realHF.setEmptyText("часов налета");
 
 		comesHF = new TextField();
-		comesHF.setAllowBlank(false);
-		comesHF.setWidth(50);
-		comesHF.setEmptyText("часов");
+		comesHF.setWidth(90);
+		comesHF.setEmptyText("часов налета");
 
 		comesDays = new TextField();
-		comesDays.setAllowBlank(false);
-		comesDays.setWidth(50);
+		comesDays.setWidth(90);
 		comesDays.setEmptyText("деней");
 
 		toolBar.add(addButton);
 		toolBar.add(editButton);
 		toolBar.add(refreshButton);
+		toolBar.add(setButton);
 
 		toolBar.add(new FieldLabel(realHF, "Текущий налет"));
 		toolBar.add(new FieldLabel(comesHF, "Предупредить за"));
 		toolBar.add(comesDays);
-
-		toolBar.add(setButton);
 
 		return toolBar;
 	}
@@ -138,7 +135,7 @@ public class TaskListController implements IsWidget, IUpdatable {
 				params.setComesHF(IntegerParser.instance().parse(comesHF.getValue()));
 			}
 		} catch (Exception ex) {
-			Info.display("Ошибка", "Неверный числовой формат");
+			Info.display("Ошибка", "Неверный числовой формат. Проверьте коеерктность заполнения полей");
 			return;
 		}
 		grid.updateData(params);
