@@ -127,13 +127,13 @@ public class TaskInfoProxy implements Serializable {
 	public String getPriorityStr() {
 		switch (priority) {
 		case 0:
-			return "0-запланированно";
+			return "Запланированно";
 		case 1:
-			return "1-приближается срок лимита";
+			return "Приближается срок лимита";
 		case 2:
-			return "2-лимит достигнут";
+			return "Лимит достигнут";
 		case 3:
-			return "3-лимит прeвышен";
+			return "Лимит прeвышен";
 		}
 		return "";
 	}

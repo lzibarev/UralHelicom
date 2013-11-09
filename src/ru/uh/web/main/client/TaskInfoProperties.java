@@ -130,6 +130,7 @@ public class TaskInfoProperties extends CommonDirectoryWindow<TaskInfoProxy> {
 			object.setLastTaskDate(lastTaskDate.getValue());
 		} catch (ParseException ex) {
 			Info.display("Ошибка", "Неверный числовой формат");
+			return;
 		}
 		UHMainModule.getService().editTask(object, new AsyncCallbackWithErrorMessage<TaskInfoProxy>() {
 			@Override

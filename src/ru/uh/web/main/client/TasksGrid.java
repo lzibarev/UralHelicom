@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.uh.web.main.shared.TaskInfoProxy;
+import ru.uh.web.main.shared.TaskShowParams;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -50,7 +51,14 @@ public class TasksGrid extends CommonGrid<TaskInfoProxy> {
 		super(store, model);
 
 		setHeight(500);
-		setLoadOnInit(true);
+		setLoadOnInit(false);
+	}
+
+	private TaskShowParams params;
+
+	public void updateData(TaskShowParams params) {
+		this.params = params;
+		super.updateData();
 	}
 
 	@Override
@@ -58,7 +66,7 @@ public class TasksGrid extends CommonGrid<TaskInfoProxy> {
 		RpcProxy<PagingLoadConfig, PagingLoadResult<TaskInfoProxy>> proxy = new RpcProxy<PagingLoadConfig, PagingLoadResult<TaskInfoProxy>>() {
 			@Override
 			public void load(PagingLoadConfig loadConfig, final AsyncCallback<PagingLoadResult<TaskInfoProxy>> callback) {
-				UHMainModule.getService().getTasks(new AsyncCallbackWithErrorMessage<List<TaskInfoProxy>>() {
+				UHMainModule.getService().getTasks(params, new AsyncCallbackWithErrorMessage<List<TaskInfoProxy>>() {
 
 					@Override
 					public void onSuccess(List<TaskInfoProxy> result) {
