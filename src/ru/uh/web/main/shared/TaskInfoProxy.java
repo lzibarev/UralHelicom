@@ -17,8 +17,8 @@ public class TaskInfoProxy implements Serializable {
 	private int marginDay;
 	private int lastTaskHF;
 	private Date lastTaskDate;
-	private double diffHF;
-	private double diffDays;
+	private String diffHFStr;
+	private String diffDaysStr;
 	private int priority;
 
 	public String getLimitHFGrid() {
@@ -106,39 +106,28 @@ public class TaskInfoProxy implements Serializable {
 		this.lastTaskDate = lastTaskDate;
 	}
 
-	public double getDiffHF() {
-		return diffHF;
+	public String getDiffHFStr() {
+		return diffHFStr;
 	}
 
-	public void setDiffHF(double diffHF) {
-		this.diffHF = diffHF;
+	public void setDiffHFStr(String diffHFStr) {
+		this.diffHFStr = diffHFStr;
 	}
 
-	public double getDiffDays() {
-		return diffDays;
+	public String getDiffDaysStr() {
+		return diffDaysStr;
 	}
 
-	public void setDiffDays(double diffDays) {
-		this.diffDays = diffDays;
+	public void setDiffDaysStr(String diffDaysStr) {
+		this.diffDaysStr = diffDaysStr;
 	}
 
 	public void setPriority(int priority) {
-		if (this.priority < priority)
-			this.priority = priority;
+		this.priority = priority;
 	}
 
-	public String getPriorityStr() {
-		switch (priority) {
-		case 0:
-			return "Запланированно";
-		case 1:
-			return "Приближается срок";
-		case 2:
-			return "Лимит достигнут";
-		case 3:
-			return "Лимит прeвышен";
-		}
-		return "";
+	public int getPriority() {
+		return priority;
 	}
 
 }

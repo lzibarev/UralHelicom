@@ -30,8 +30,17 @@ public class TasksGrid extends CommonGrid<TaskInfoProxy> {
 	public static TasksGrid getCalculatorGrid() {
 		ListStore<TaskInfoProxy> store = new ListStore<TaskInfoProxy>(props.key());
 
-		ColumnConfig<TaskInfoProxy, String> priorityCol = new ColumnConfig<TaskInfoProxy, String>(props.priorityStr(), 100, "Приоритет");
-		priorityCol.setCell(new AbstractCell<String>() {
+		ColumnConfig<TaskInfoProxy, Integer> priorityCol = new ColumnConfig<TaskInfoProxy, Integer>(props.priority(), 50, "Приоритет");
+
+		ColumnConfig<TaskInfoProxy, String> taskNameCol = new ColumnConfig<TaskInfoProxy, String>(props.taskNumber(), 100, "Код работы");
+		ColumnConfig<TaskInfoProxy, String> taskTitleCol = new ColumnConfig<TaskInfoProxy, String>(props.taskTitle(), 200, "Описание работы");
+		ColumnConfig<TaskInfoProxy, String> limitHFCol = new ColumnConfig<TaskInfoProxy, String>(props.limitHFGrid(), 100, "Лимит налета");
+		ColumnConfig<TaskInfoProxy, String> limitMonthCol = new ColumnConfig<TaskInfoProxy, String>(props.limitMonthGrid(), 100, "Лимит времени");
+		ColumnConfig<TaskInfoProxy, String> lastTaskCol = new ColumnConfig<TaskInfoProxy, String>(props.lastTaskGrid(), 200, "Последняя работа");
+		ColumnConfig<TaskInfoProxy, String> taskDiffHFCol = new ColumnConfig<TaskInfoProxy, String>(props.diffHFStr(), 200, "Интервал налет");
+		ColumnConfig<TaskInfoProxy, String> taskDiffDaysCol = new ColumnConfig<TaskInfoProxy, String>(props.diffDaysStr(), 200, "Интервал время");
+
+		AbstractCell<String> c = new AbstractCell<String>() {
 
 			@Override
 			public void render(Context context, String value, SafeHtmlBuilder sb) {
@@ -41,21 +50,20 @@ public class TasksGrid extends CommonGrid<TaskInfoProxy> {
 				sb.appendHtmlConstant("<span " + style + " qtitle='Change' qtip='" + value + "'>" + value + "</span>");
 			}
 
-		});
+		};
 
-		ColumnConfig<TaskInfoProxy, String> taskNameCol = new ColumnConfig<TaskInfoProxy, String>(props.taskNumber(), 100, "Код работы");
-		ColumnConfig<TaskInfoProxy, String> taskTitleCol = new ColumnConfig<TaskInfoProxy, String>(props.taskTitle(), 200, "Описание работы");
-		ColumnConfig<TaskInfoProxy, String> limitHFCol = new ColumnConfig<TaskInfoProxy, String>(props.limitHFGrid(), 100, "Лимит налета");
-		ColumnConfig<TaskInfoProxy, String> limitMonthCol = new ColumnConfig<TaskInfoProxy, String>(props.limitMonthGrid(), 100, "Лимит времени");
-		ColumnConfig<TaskInfoProxy, String> tastTaskCol = new ColumnConfig<TaskInfoProxy, String>(props.lastTaskGrid(), 200, "Последняя работа");
+		taskDiffHFCol.setCell(c);
+		taskDiffHFCol.setCell(c);
 
 		List<ColumnConfig<TaskInfoProxy, ?>> l = new ArrayList<ColumnConfig<TaskInfoProxy, ?>>();
 		l.add(priorityCol);
+		l.add(taskDiffDaysCol);
+		l.add(taskDiffHFCol);
 		l.add(taskNameCol);
 		l.add(taskTitleCol);
 		l.add(limitHFCol);
 		l.add(limitMonthCol);
-		l.add(tastTaskCol);
+		l.add(lastTaskCol);
 
 		ColumnModel<TaskInfoProxy> model = new ColumnModel<TaskInfoProxy>(l);
 		return new TasksGrid(store, model);
