@@ -20,7 +20,7 @@ public abstract class CommonGrid<T> extends Grid<T> {
 		super(store, model);
 
 		loader = createLoader();
-		loader.setRemoteSort(true);
+		loader.setRemoteSort(false);
 		loader.addLoadHandler(new LoadResultListStoreBinding<PagingLoadConfig, T, PagingLoadResult<T>>(store));
 
 		this.getView().setForceFit(true);
