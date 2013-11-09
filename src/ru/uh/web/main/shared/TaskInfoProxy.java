@@ -129,7 +129,7 @@ public class TaskInfoProxy implements Serializable {
 		case 0:
 			return "Запланированно";
 		case 1:
-			return "Приближается срок лимита";
+			return "Приближается срок";
 		case 2:
 			return "Лимит достигнут";
 		case 3:

@@ -110,10 +110,10 @@ public class TaskListController implements IsWidget, IUpdatable {
 				throw new ParseException("", 0);
 			params.setRealHF(IntegerParser.instance().parse(realHF.getValue()));
 			if (comesDays.getValue() != null) {
-				params.setComesHF(IntegerParser.instance().parse(comesHF.getValue()));
+				params.setComesDays(IntegerParser.instance().parse(comesDays.getValue()));
 			}
 			if (comesHF.getValue() != null) {
-				params.setComesDays(IntegerParser.instance().parse(comesDays.getValue()));
+				params.setComesHF(IntegerParser.instance().parse(comesHF.getValue()));
 			}
 		} catch (ParseException ex) {
 			Info.display("Ошибка", "Неверный числовой формат");

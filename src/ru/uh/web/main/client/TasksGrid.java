@@ -6,7 +6,9 @@ import java.util.List;
 import ru.uh.web.main.shared.TaskInfoProxy;
 import ru.uh.web.main.shared.TaskShowParams;
 
+import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.sencha.gxt.data.client.loader.RpcProxy;
 import com.sencha.gxt.data.shared.ListStore;
@@ -29,6 +31,18 @@ public class TasksGrid extends CommonGrid<TaskInfoProxy> {
 		ListStore<TaskInfoProxy> store = new ListStore<TaskInfoProxy>(props.key());
 
 		ColumnConfig<TaskInfoProxy, String> priorityCol = new ColumnConfig<TaskInfoProxy, String>(props.priorityStr(), 100, "Приоритет");
+		priorityCol.setCell(new AbstractCell<String>() {
+
+			@Override
+			public void render(Context context, String value, SafeHtmlBuilder sb) {
+				String color = value.startsWith("Лимит прeвышен") ? "red" : value.startsWith("Лимит достигнут") ? "green"
+						: value.startsWith("Приближается") ? "blue" : "wight";
+				String style = "style='color: " + color + "'";
+				sb.appendHtmlConstant("<span " + style + " qtitle='Change' qtip='" + value + "'>" + value + "</span>");
+			}
+
+		});
+
 		ColumnConfig<TaskInfoProxy, String> taskNameCol = new ColumnConfig<TaskInfoProxy, String>(props.taskNumber(), 100, "Код работы");
 		ColumnConfig<TaskInfoProxy, String> taskTitleCol = new ColumnConfig<TaskInfoProxy, String>(props.taskTitle(), 200, "Описание работы");
 		ColumnConfig<TaskInfoProxy, String> limitHFCol = new ColumnConfig<TaskInfoProxy, String>(props.limitHFGrid(), 100, "Лимит налета");
